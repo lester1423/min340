@@ -1,0 +1,72 @@
+body {
+    line-height: 2em;
+}
+@-webkit-keyframes slideIn {
+    0% {color: #fff; left: 1000px};
+    25% {left: 750px;}
+    50% {left: 500px;}
+    75% {left: 250px;}
+    100% {color: #00ff00; left: 0px}
+}
+@keyframes slideIn {
+    0% {color: #fff; left: 1000px};
+    25% {left: 750px;}
+    50% {left: 500px;}
+    75% {left: 250px;}
+    100% {color: #00ff00; left: 0px}
+}
+h1 {
+    position: relative;
+    font-family: Cinzel-Regular, serif;
+    color: #00ff00;
+    font-size: 4em;
+    animation: slideIn 3s linear;
+}
+p {
+    color: #fff;
+}
+h2, h3, h4, h5 {
+    font-family: 'Open Sans', sans-serif;
+    color: rgba(255, 255, 255, 1);
+}
+
+h6 {
+    font-family: 'Inconsolata', monospace;
+    color: #00ff00;
+}
+@font-face {
+    font-family: Cinzel-Regular;
+    src:url("Cinzel-Regular.otf");
+}
+#bg {
+    height: 1000px;
+    width: 90%;
+    margin: 0 auto;
+    background-image: url(LesterThirds.jpg);
+    background-size: cover;
+    -webkit-transform: translate3D(0,0,0);
+    
+}
+#bgFilter {
+   height: 100%;
+   width: 100%;
+   background-color: rgba(0,0,0,.75);
+   -webkit-transform: translate3D(0,0,10px); 
+}
+#main {
+   -webkit-transform: translate3D(0,0,20px);
+    padding: 5%;
+}
+#bg, #bgFilter, #main {
+    display: block;
+    overflow: scroll;
+}
+p, ul {
+    font-size: 1.25em;
+}
+a {
+    color: #fff;
+}
+a:hover {
+    color: #00ff00;
+}
