@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Personality Test</title>
+        <meta name="description" content="An interactive getting started guide for Brackets.">
+        <link rel="stylesheet" href="main.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    </head>
+    <body>
+        <div id="container">
+            <div id="intro">
+                <div id="name">Hello!</div>
+                <input id="input" type="text" placeholder="Enter your name..." />
+                <button id="button01" onclick = "showIntro()"> Enter </button>
+                <div id="welcome">
+                    <p>Welcome to Jacob Lester's MIN340 Personality Test! <br> This short quiz will analyze your decision-making to infer your personality type.</p>
+                    <p>Do you want to try?</p>
+                    <button id="button02" onclick="showQuestion()"> Yes! </button>
+                </div>
+            </div>
+            <div id="question1">
+                <p>Question: You are riding in a car, and inside with you is a bee that is flying against the window trying to get out. What do you do?</p>
+                <ul>
+                    <li id="A" onclick="showResult('resultA')">A.) Ignore the bee</li>
+                    <li id="B" onclick="showResult('resultB')">B.) Kill the bee</li>
+                    <li id="C" onclick="showResult('resultC')">C.) Torture the bee</li>
+                    <li id="D" onclick="showResult('resultD')">D.) Free the bee</li>
+                </ul>
+            </div>
+            <div id="resultA">
+                <p>You ignored the Bee. You are unable to make crucial decisions. When a decision is required you dither. By the time you make up your mind, it's too late. You have no strong opinions, on Bees or otherwise, you err on the side of caution, it is better not to get involved than to make a rash judgement which might get you stung. You are a middle of the road-er. Helpful Moral: Life is full of important decisions, you can't avoid them for ever.</p>
+            </div>
+            <div id="resultB">
+                <p>You killed the Bee. You are not as heartless as you may seem. You don't believe in prolonging misery, you live for the here and now and anytime that life gets stale you move on. This may mean that you are afraid of routine. Although some of your decisions can appear to be callous, you are trying to help. Helpful Moral: Other people may not wish to fit into your life ethic. Don't try and direct their lives.</p>
+            </div>
+            <div id="resultC">
+                <p>You tortured the Bee. You believe in your own physical and mental strength and openly demonstrate it for your own benefit. You take great pride in passing judgement on weaker beings and believe that only be emulating you can they equal you. You take orders from nobody and enjoy your feeling of superiority. Helpful Moral: Bees sting. Have more respect for the lesser beings of this world.</p>
+            </div>
+            <div id="resultD">
+                <p>You saved the Bee. You are compassionate to strangers as well as friends, you know that the pleasure in life is helping each other, indeed you probably would not survive without your network of friends, you rely on them emotionally as they do on you. You are a happy and optimistic person who can always see the bright side of life. You are heavily involved in your community and enjoy doing new things although you probably have a stable routine. Helpful Moral: Try and become more emotionally independant and stable, friends aren't always there to pick you up.</p>
+            </div>
+        </div>
+
+    </body>
+    <script>
+        function showIntro() {
+            document.querySelector("#name").innerHTML = "Hello, " + document.querySelector("#input").value + "!";
+            document.querySelector("#button01").style.display = "none";
+            document.querySelector("input").style.display = "none";
+            document.querySelector("#welcome").style.display = "block";
+        }
+        
+        function showQuestion() {
+            document.querySelector("#intro").style.display = "none";
+            document.querySelector("#question1").style.display = "block";
+            document.querySelector("ul").style.display = "block";
+        }
+        
+        function showResult(result) {
+            if (result == 'resultA') {
+                document.querySelector("#resultB").style.display = "none";
+                document.querySelector("#resultC").style.display = "none";
+                document.querySelector("#resultD").style.display = "none";
+                
+            } else if (result == 'resultB') {
+                document.querySelector("#resultA").style.display = "none";
+                document.querySelector("#resultC").style.display = "none";
+                document.querySelector("#resultD").style.display = "none";
+            } else if (result == 'resultC') {
+                document.querySelector("#resultA").style.display = "none";
+                document.querySelector("#resultB").style.display = "none";
+                document.querySelector("#resultD").style.display = "none";
+            } else {
+                document.querySelector("#resultA").style.display = "none";
+                document.querySelector("#resultB").style.display = "none";
+                document.querySelector("#resultC").style.display = "none";
+            }
+            document.querySelector("#" + result).style.display = "block";
+        }
+    </script>
+</html>
