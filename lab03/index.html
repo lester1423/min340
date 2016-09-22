@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Fly Guy</title>
+        <meta name="description" content="An interactive getting started guide for Brackets.">
+        <link rel="stylesheet" href="main.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    </head>
+    <body>
+        <div id="container">
+            <div id="main">
+                <div id="welcome">
+                    <div id="name"><h3>Hello!</h3></div>
+                    <input id="input" type="text" placeholder="Enter your name..." />
+                    <button id="button01" onclick ="showIntro()"> Enter </button>
+                </div>
+                <div id="intro">
+                    <p>A boy had a pet fly. He named him Fly Guy. Fly Guy was the smartest pet in the world. He could say the boy’s name “Buzz”. They always love to play a hide and seek.</p>
+                    <p>Could you help Buzz to find Fly Guy?</p>
+                    <button id="button02" onclick="showInstructions()"> Yes, play now! </button>
+                </div>
+                <div id="instructions">
+                    <h2>How to Play</h2>
+                    <p>You will enter x and y coordinate in the input box and click the “examine” button. If you found the fly on that coordinate (or nearby), the search beam (x- or y-) will turn green, otherwise the beams will stay gray.</p>
+                    <button id="button03" onclick="showGame(), randomCoords()">Got it!</button>
+                </div>
+                <div id="game">
+                    <div id="coordinates">
+                        <h3>Coordinates Guess</h3>
+                        <input id="xCoord" type="number" placeholder="x-coordinate" />
+                        <input id="yCoord" type=”number” placeholder="y-coordinate" />
+                        <button id="button04" onclick="checkGuess()"> Examine </button>
+                        <p id="alert">Please choose valid coordinates (0 to 460)!</p>
+                        <p id="tries">Tries Left: 10</p>
+                    </div>
+                    <div id="playground" style="text-align:left">
+                        <div id="xBeam"></div>
+                        <div id="yBeam"></div>
+                        <div id="crosshair"></div>
+                        <img id="fly" src="flyGuy40x40.png"/>
+                    </div>
+                    <div>
+                        <button id="button05" onclick="resetGame()">Play Again!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        var flyXCoord = Math.ceil(Math.random() * 460);
+        var flyYCoord = Math.ceil(Math.random() * 460);
+        var tries = 10;
+        
+        function showIntro() {
+            document.querySelector("#name").innerHTML = "Hello, " + document.querySelector("#input").value + "!";
+            document.querySelector("#button01").style.display = "none";
+            document.querySelector("input").style.display = "none";
+            document.querySelector("#intro").style.display = "block";
+        }
+        
+        function showInstructions() {
+            document.querySelector("#name").style.display = "none";
+            document.querySelector("#intro").style.display = "none";
+            document.querySelector("#instructions").style.display = "block";
+        }
+        
+        function showGame() {
+            document.querySelector("#instructions").style.display = "none";
+            document.querySelector("#button03").style.display = "none";
+            document.querySelector("#game").style.display = "block";
+        }
+        
+        function randomCoords() {
+            document.querySelector("#fly").style.transform = "translate3d(" + flyXCoord + "px, " + flyYCoord + "px, 0px)";
+        }
+        
+        function checkGuess() {
+            
+            var xCoord = document.querySelector("#xCoord").value;
+            var yCoord = document.querySelector("#yCoord").value;
+            if (tries > 0) {
+                document.querySelector("#alert").style.color = "rgba(255, 0, 0, 0)";
+                document.querySelector("#xBeam").style.color = "#e6e6e6";
+                document.querySelector("#yBeam").style.color = "#e6e6e6";
+                document.querySelector("#crosshair").style.color = "#CCCCCC";
+                
+                // Check for valid input
+                if ((xCoord >= 0 && xCoord <= 460) && (yCoord >= 0 && yCoord <= 460)) {
+                    document.querySelector("#xBeam").style.transform = "translateX(" + xCoord + "px)"; 
+                    document.querySelector("#yBeam").style.transform = "translateY(" + yCoord + "px)";  
+                    document.querySelector("#crosshair").style.transform = "translate3d(" + xCoord + "px, " + yCoord + "px, 0px)";   
+                } else {
+                    document.querySelector("#alert").style.color = "rgba(255, 0, 0, 1)";
+                }
+
+                // Check if x and y both match
+                if (xCoord == flyXCoord && yCoord == flyYCoord) {
+                    document.querySelector("#crosshair").style.backgroundColor = "rgba(0, 153, 0, .8)";
+                    alert("Good Job! You found him!");
+                    setTimeout(resetGame(), 8000);
+                } else {
+                    document.querySelector("#crosshair").style.backgroundColor = "#cccccc";
+                }
+
+                // Check if x in range
+                if (xCoord >= flyXCoord -39 && xCoord <= flyXCoord + 39) {
+                    document.querySelector("#xBeam").style.backgroundColor = "rgba(0, 255, 0, .8)";
+
+                } else {
+                    document.querySelector("#xBeam").style.backgroundColor = "#e6e6e6";
+                }
+
+                // Check if y in range
+                if (yCoord >= flyYCoord -39 && yCoord <= flyYCoord + 39) {
+                    document.querySelector("#yBeam").style.backgroundColor = "rgba(0, 255, 0, .8)";
+                } else {
+                    document.querySelector("#yBeam").style.backgroundColor = "#e6e6e6";
+                }
+                
+                // If both out of range, decrement tries and reset game
+                if ((xCoord < flyXCoord -39 || xCoord > flyXCoord + 39) && (yCoord < flyYCoord -39 || yCoord > flyYCoord + 39)) {
+                    tries--;
+                    resetInput();
+                }
+            } else {
+                alert("You used too many attempts! Game Over!");
+                document.querySelector("#button05").style.display = "block";
+            }
+            
+        }
+        
+        function resetInput() {
+            document.querySelector("#tries").innerHTML = "Tries Left: " + tries;
+            document.querySelector("#xCoord").value = null;
+            document.querySelector("#yCoord").value = null;
+        }
+        
+        function resetGame() {
+            location.reload();
+        }
+    </script>
+</html>
